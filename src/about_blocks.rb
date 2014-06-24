@@ -93,8 +93,6 @@ class AboutBlocks < Neo::Koan
     assert_equal __(11), method_with_explicit_block(&add_one)
   end
 
-  ### --- Testing lambda, blocks and procs ---------------------------
-
   def method_block
     if block_given?
       puts yield
@@ -115,26 +113,23 @@ class AboutBlocks < Neo::Koan
 
   def test_lambda_vs_blocks_vs_proc
 
-    lambda_test   # I can run "lambda_test" and returns "Hello world"
-    proc_test     # Running "proc_test" returns nothing
+    lambda_test
+    proc_test
     
-    test_string_lambda = lambda { "This is a test"}                    # Running a lambda
-    assert_equal ___("This is a test"), test_string_lambda.call        # We can execute proc functions
+    test_string_lambda = lambda { "This is a test"}
+    assert_equal ___("This is a test"), test_string_lambda.call
     assert_equal ___("THIS IS A TEST"), test_string_lambda.call.upcase 
-    assert_equal ___(14), test_string_lambda.call.length               # Not possible to do it over a block
+    assert_equal ___(14), test_string_lambda.call.length
 
-    test_num_lambda = lambda { |n| n * 9 }                        # lambda with math operation
+    test_num_lambda = lambda { |n| n * 9 }
     assert_equal ___(27), test_num_lambda.call(3)
 
-    # I can change the value variable inside a Block
-    value01 = 30                                                  # A Block isn't a Object, I can't do a
-    method_block { value01 += 10 }                                # method_block.function...
+    value01 = 30
+    method_block { value01 += 10 }
     assert_equal ___(40), value01
     
-    # Proc examples
-    p = Proc.new { |n| n * 3 }                                    # A Proc is an Object like lambda
+    p = Proc.new { |n| n * 3 }
     puts p.call(2)
-                                                                  # so lamda and Proc are both Proc objects.
     assert_equal ___(6), p.call(2)
   end
 end
