@@ -93,30 +93,9 @@ class AboutBlocks < Neo::Koan
     assert_equal __(11), method_with_explicit_block(&add_one)
   end
 
-  def method_block
-    if block_given?
-      puts yield
-    end
-  end
-
-  def lambda_test
-    lam = lambda { return }
-    lam.call
-    puts "Hello world"
-  end
-
-  def proc_test
-    proc = Proc.new { return }
-    proc.call
-    puts "Hello world"
-  end
-
   def test_lambda_vs_blocks_vs_proc
-
-    lambda_test
-    proc_test
     
-    test_string_lambda = lambda { "This is a test"}
+    test_string_lambda = lambda { "This is a test" }
     assert_equal ___("This is a test"), test_string_lambda.call
     assert_equal ___("THIS IS A TEST"), test_string_lambda.call.upcase 
     assert_equal ___(14), test_string_lambda.call.length
@@ -129,7 +108,6 @@ class AboutBlocks < Neo::Koan
     assert_equal ___(40), value01
     
     p = Proc.new { |n| n * 3 }
-    puts p.call(2)
     assert_equal ___(6), p.call(2)
   end
 end
