@@ -15,6 +15,18 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  if (a==0 && b==0 && c==0)
+  	raise TriangleError.new
+  end
+
+  if (c<=0)
+  	raise TriangleError.new
+  end
+
+  if((a+b <= c) || (a+c <= b) || (b+c <= a))
+    raise TriangleError.new
+  end
+
 end
 
 # Error class used in part 2.  No need to change this code.
