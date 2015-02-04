@@ -31,6 +31,38 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  result = 0
+
+  counts = Hash.new(0)
+
+  dice.each do |value|
+    counts[value] += 1
+  end
+
+  counts.each do |item,numfound|
+    # 1,1,1  (1000 pts) si el item es 1 y los numeros encontrados son 3 o más el resultado es = result + 1000 y el numfound es = numfound - 3 (porque se han encontrado 3 nums)
+    if item == 1 && numfound >= 3 then
+      result += 1000
+      numfound -= 3
+    end
+    # 5,5,5 si el item es 5 (500 pts) 
+    if item != 1 && numfound >= 3 then
+      result += item * 100
+      numfound -= 3
+    end
+    # si el item es 1 pero no forman un trio (100 pts) por cada uno encontrado que no sea parte del set de tres unos
+    if item == 1 && numfound <= 2 then
+      result += numfound * 100
+    end
+    # (50 pts +) por cada 5 encontrado que esté fuera de un trio de cincos 
+    if item == 5 && numfound <= 2 then
+      result += 50 * numfound
+    end
+
+  end
+
+  result
+
 end
 
 class AboutScoringProject < Neo::Koan
